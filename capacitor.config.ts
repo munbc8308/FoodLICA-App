@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-	appId: 'com.foodLica.prod',
-	appName: 'foodLica-app',
+	appId: 'com.FoodLICA.prod',
+	appName: 'FoodLICA-app',
 	webDir: 'build', // ⭐ SvelteKit static output
 	server: {
 		// 개발 시 로컬 서버 사용
