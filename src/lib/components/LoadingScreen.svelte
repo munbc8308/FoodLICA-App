@@ -38,12 +38,15 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		justify-content: center;
 	}
 
 	.logo-image {
-		width: 120px;
+		width: 180px;
 		height: auto;
 		animation: bounce 1.5s ease-in-out infinite;
+		mix-blend-mode: multiply;
+		border-radius: 20px;
 	}
 
 	.spinner {

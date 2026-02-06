@@ -7,7 +7,9 @@
 
 <div class="unauthorized-screen">
 	<div class="content">
-		<img src={logo} alt="FoodLICA" class="logo" />
+		<div class="logo-wrapper">
+			<img src={logo} alt="FoodLICA" class="logo" />
+		</div>
 		<div class="icon">🔒</div>
 		<h1 class="title">접근 제한</h1>
 		<p class="message">{message}</p>
@@ -34,12 +36,22 @@
 	.content {
 		text-align: center;
 		max-width: 400px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.logo-wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 1.5rem;
 	}
 
 	.logo {
-		width: 100px;
+		width: 150px;
 		height: auto;
-		margin-bottom: 1.5rem;
+		border-radius: 16px;
 	}
 
 	.icon {
