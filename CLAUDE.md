@@ -63,6 +63,32 @@ src/
 - **API Proxy**: `/api/routes` proxies Google Directions API to avoid CORS
 - **Google Maps**: Uses Legacy Places API (deprecated but stable), standard `google.maps.Marker`
 - **Adapter Selection**: Auto-switches between `adapter-static` (local/Capacitor) and `adapter-vercel` (Vercel deployment)
+- **App Authentication**: Content only accessible from LICA-App WebView (checks `window.isNativeApp`, User-Agent)
+
+## App Authentication (LICA-App Integration)
+
+This web app is designed to run inside LICA-App's WebView. Authentication flow:
+
+1. App injects `window.isNativeApp = true` and `window.sendToApp()` function
+2. Web checks for app environment on load via `appAuthStore`
+3. If not in app → shows `UnauthorizedScreen`
+4. If in app → proceeds with normal flow
+
+### Key Files
+- `src/lib/services/appBridge.ts` - Bridge communication with native app
+- `src/lib/stores/appAuth.svelte.ts` - App authentication state store
+- `src/lib/components/UnauthorizedScreen.svelte` - Access denied screen
+
+### Bridge API Usage
+```typescript
+import { sendToApp, isInApp } from '$lib/services/appBridge';
+
+// Check if running in app
+if (isInApp()) {
+  // Send message to app
+  const response = await sendToApp('device.getInfo', {});
+}
+```
 
 ## Environment Setup
 

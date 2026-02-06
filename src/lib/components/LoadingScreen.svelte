@@ -1,12 +1,13 @@
 <script lang="ts">
+	import logo from '$lib/assets/logo.png';
+
 	let { message = '위치를 찾고 있습니다...' }: { message?: string } = $props();
 </script>
 
 <div class="loading-screen">
 	<div class="loading-content">
 		<div class="logo">
-			<div class="logo-icon">🍴</div>
-			<h1 class="logo-text">FoodLica</h1>
+			<img src={logo} alt="FoodLICA" class="logo-image" />
 		</div>
 
 		<div class="spinner"></div>
@@ -37,19 +38,12 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.5rem;
 	}
 
-	.logo-icon {
-		font-size: 4rem;
+	.logo-image {
+		width: 120px;
+		height: auto;
 		animation: bounce 1.5s ease-in-out infinite;
-	}
-
-	.logo-text {
-		font-size: 2.5rem;
-		font-weight: 700;
-		color: #4a4a4a;
-		letter-spacing: -0.5px;
 	}
 
 	.spinner {
