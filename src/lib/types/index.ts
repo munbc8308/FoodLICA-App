@@ -56,32 +56,6 @@ export interface RouteStep {
 	endLocation: Location;
 }
 
-// User review
-export interface Review {
-	id: number;
-	userId: number;
-	restaurantId: string; // Google Place ID
-	restaurantName: string;
-	rating: number; // 1-5
-	comment?: string | null;
-	visitDate?: Date | null;
-	wouldVisitAgain: boolean;
-	photos?: string[]; // Photo URLs (stored as JSON in DB)
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-// Review creation/update form data
-export interface ReviewFormData {
-	restaurantId: string;
-	restaurantName: string;
-	rating: number; // 1-5
-	comment?: string;
-	visitDate?: Date;
-	wouldVisitAgain: boolean;
-	photos?: string[];
-}
-
 // API error type
 export interface APIError {
 	message: string;

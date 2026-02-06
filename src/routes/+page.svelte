@@ -27,13 +27,13 @@
 
 			// Check if location was successfully obtained
 			if (locationStore.location) {
-				// Redirect to login page
-				goto('/login');
+				// Redirect to main page
+				goto('/main');
 			} else {
 				error = '위치를 가져올 수 없습니다. 기본 위치를 사용합니다.';
 				// Use fallback location and redirect
 				locationStore.useFallbackLocation();
-				setTimeout(() => goto('/login'), 1500);
+				setTimeout(() => goto('/main'), 1500);
 			}
 		} catch (err) {
 			console.error('Initialization error:', err);
@@ -44,7 +44,7 @@
 			// Ensure minimum 2 seconds display time
 			const elapsed = Date.now() - startTime;
 			const remaining = Math.max(0, 2000 - elapsed);
-			setTimeout(() => goto('/login'), remaining);
+			setTimeout(() => goto('/main'), remaining);
 		}
 	});
 </script>

@@ -11,26 +11,19 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint .",
-		"db:generate": "drizzle-kit generate",
-		"db:migrate": "drizzle-kit migrate",
-		"db:push": "drizzle-kit push",
-		"db:studio": "drizzle-kit studio"
+		"lint": "prettier --check . && eslint ."
 	},
 	"devDependencies": {
 		"@capacitor/cli": "^8.0.0",
 		"@eslint/compat": "^1.4.0",
 		"@eslint/js": "^9.39.1",
-		"@sveltejs/adapter-node": "^5.4.0",
 		"@sveltejs/adapter-static": "^3.0.10",
+		"@sveltejs/adapter-vercel": "^6.3.1",
 		"@sveltejs/kit": "^2.49.1",
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
 		"@tailwindcss/vite": "^4.1.17",
-		"@types/bcrypt": "^6.0.0",
-		"@types/better-sqlite3": "^7.6.13",
 		"@types/google.maps": "^3.58.1",
 		"@types/node": "^22",
-		"drizzle-kit": "^0.31.8",
 		"eslint": "^9.39.1",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.13.1",
@@ -50,9 +43,6 @@
 		"@capacitor/android": "^8.0.0",
 		"@capacitor/core": "^8.0.0",
 		"@capacitor/ios": "^8.0.0",
-		"@googlemaps/js-api-loader": "^2.0.2",
-		"bcrypt": "^6.0.0",
-		"better-sqlite3": "^12.5.0",
-		"drizzle-orm": "^0.45.1"
+		"@googlemaps/js-api-loader": "^2.0.2"
 	}
 }

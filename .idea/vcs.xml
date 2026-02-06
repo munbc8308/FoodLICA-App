@@ -2,10 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ios/DerivedData/0B47462F-BFAA-4586-A891-9E7A4A26C620/SourcePackages/checkouts/capacitor-swift-pm" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ios/DerivedData/A9B49E9B-F514-46E2-8606-E74FAB8C693F/SourcePackages/checkouts/capacitor-swift-pm" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ios/DerivedData/CEE2F78B-671E-4B3B-BD33-D92856228E65/SourcePackages/checkouts/capacitor-swift-pm" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ios/DerivedData/E522D829-7DA1-4FB9-ACE4-BE4DF1FFCEAD/SourcePackages/checkouts/capacitor-swift-pm" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ios/DerivedData/E6B4C164-A9DF-4887-8840-F6C5C4455EF0/SourcePackages/checkouts/capacitor-swift-pm" vcs="Git" />
   </component>
 </project>

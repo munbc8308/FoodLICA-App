@@ -2,44 +2,27 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import MapView from '$lib/components/MapView.svelte';
-	import ReviewForm from '$lib/components/ReviewForm.svelte';
 	import { locationStore } from '$lib/stores/location.svelte';
 	import { restaurantsStore } from '$lib/stores/restaurants.svelte';
 	import { routeStore } from '$lib/stores/route.svelte';
 	import { formatDistance } from '$lib/services/directions';
-	import type { ReviewFormData } from '$lib/types';
 
 	let location = $derived(locationStore.location);
 	let selectedRestaurant = $derived(restaurantsStore.selected);
 	let route = $derived(routeStore.route);
 	let loadingState = $derived(routeStore.loadingState);
 
-	// Review modal state
-	let showReviewModal = $state(false);
-
 	onMount(async () => {
-		console.log('[Route Page] onMount - location:', location);
-		console.log('[Route Page] onMount - selectedRestaurant:', selectedRestaurant);
-
 		// If no selected restaurant, redirect back
 		if (!selectedRestaurant) {
-			console.error('[Route Page] No selected restaurant!');
 			alert('선택된 식당이 없습니다.');
 			goto('/recommend');
 			return;
 		}
 
-		console.log('[Route Page] Selected restaurant:', {
-			name: selectedRestaurant.name,
-			location: selectedRestaurant.location
-		});
-
 		// Fetch route if user location is available
 		if (location && selectedRestaurant) {
-			console.log('[Route Page] Fetching route from', location, 'to', selectedRestaurant.location);
 			await routeStore.fetchRoute(location, selectedRestaurant.location);
-		} else if (!location) {
-			console.warn('[Route Page] No user location available, skipping route fetch');
 		}
 	});
 
@@ -56,42 +39,6 @@
 		const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
 		window.open(url, '_blank');
 	}
-
-	function handleCompleteVisit() {
-		showReviewModal = true;
-	}
-
-	function closeReviewModal() {
-		showReviewModal = false;
-	}
-
-	async function handleReviewSubmit(formData: ReviewFormData) {
-		try {
-			const API_URL = import.meta.env.PUBLIC_API_URL || '';
-			const response = await fetch(`${API_URL}/api/reviews`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				credentials: 'include',
-				body: JSON.stringify(formData)
-			});
-
-			const data = await response.json();
-
-			if (!response.ok) {
-				throw new Error(data.error || '후기 작성 실패');
-			}
-
-			// Success - close modal and navigate
-			showReviewModal = false;
-			alert('후기가 작성되었습니다! 🎉');
-			goto('/reviews');
-		} catch (error) {
-			console.error('Review submit error:', error);
-			throw error; // Let ReviewForm handle the error
-		}
-	}
 </script>
 
 <div class="route-page">
@@ -105,10 +52,6 @@
 	{#if selectedRestaurant}
 		{@const restaurantArray = [selectedRestaurant]}
 		{@const mapCenter = location || selectedRestaurant.location}
-		{@const _ = console.log('[Route Page Render] restaurantArray:', restaurantArray)}
-		{@const __ = console.log('[Route Page Render] location:', location)}
-		{@const ___ = console.log('[Route Page Render] mapCenter:', mapCenter)}
-		{@const ____ = console.log('[Route Page Render] selectedRestaurant:', selectedRestaurant)}
 		<div class="map-container">
 			<MapView
 				center={mapCenter}
@@ -164,31 +107,12 @@
 				<button type="button" class="nav-button" onclick={handleStartNavigation}>
 					🗺️ Google Maps로 길찾기
 				</button>
-				<button type="button" class="complete-button" onclick={handleCompleteVisit}>
-					✏️ 후기 작성하기
-				</button>
 			</div>
 		</div>
 	{:else}
 		<div class="error-state">
 			<p>선택된 식당이 없습니다.</p>
 			<button type="button" onclick={() => goto('/recommend')}>뒤로 가기</button>
-		</div>
-	{/if}
-
-	<!-- Review Modal -->
-	{#if showReviewModal && selectedRestaurant}
-		<div class="modal-overlay" role="presentation" onclick={closeReviewModal} onkeydown={(e) => e.key === 'Escape' && closeReviewModal()}>
-			<div class="modal-content" role="dialog" aria-modal="true" tabindex="-1" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()}>
-				<ReviewForm
-					restaurant={{
-						id: selectedRestaurant.placeId,
-						name: selectedRestaurant.name
-					}}
-					onSubmit={handleReviewSubmit}
-					onCancel={closeReviewModal}
-				/>
-			</div>
 		</div>
 	{/if}
 </div>
@@ -384,23 +308,6 @@
 		box-shadow: 0 4px 12px rgba(255, 180, 171, 0.4);
 	}
 
-	.complete-button {
-		width: 100%;
-		padding: 1rem;
-		border: 2px solid #b2e0d4;
-		border-radius: 12px;
-		background: white;
-		color: #2d6a4f;
-		font-size: 1rem;
-		font-weight: 700;
-		cursor: pointer;
-		transition: all 0.2s;
-	}
-
-	.complete-button:hover {
-		background: #c7efcf;
-	}
-
 	.error-state {
 		flex: 1;
 		display: flex;
@@ -420,27 +327,5 @@
 		color: #ffb4ab;
 		font-weight: 600;
 		cursor: pointer;
-	}
-
-	/* Modal */
-	.modal-overlay {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: rgba(0, 0, 0, 0.5);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		z-index: 1000;
-		padding: 1rem;
-	}
-
-	.modal-content {
-		max-width: 600px;
-		width: 100%;
-		max-height: 90vh;
-		overflow-y: auto;
 	}
 </style>
